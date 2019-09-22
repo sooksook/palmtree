@@ -1,12 +1,5 @@
 package com.sooksook.palmtree.domain
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.opencsv.CSVParserBuilder
-import com.opencsv.CSVReaderBuilder
-import org.springframework.core.io.ClassPathResource
-import java.io.FileReader
-
 data class Plant(
         val id: Id,
         val name: String,
