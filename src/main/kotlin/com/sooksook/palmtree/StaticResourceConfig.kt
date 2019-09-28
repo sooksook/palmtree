@@ -10,7 +10,16 @@ class StaticResourceConfig: WebMvcConfigurerAdapter() {
     val RESOURCE_LOCACTION = "classpath:/"
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-        val resourceHandlerRegistration = registry.addResourceHandler("/static/**")
-        resourceHandlerRegistration.addResourceLocations(RESOURCE_LOCACTION + "static/")
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations(RESOURCE_LOCACTION + "static/")
+
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/WEB-INF/resources/")
+
+        registry.addResourceHandler("/swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/")
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/")
     }
 }
