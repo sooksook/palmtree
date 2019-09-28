@@ -17,20 +17,4 @@ class WelcomeController {
             val status: Int = 200,
             val message: String = "Hello"
     )
-
-    @RequestMapping("/plants")
-    fun plants() = PlantsResponse(PlantRepository().getAll())
-
-    @RequestMapping("/plants/{id}")
-    fun plant(@PathVariable id: Id) = PlantResponse(PlantRepository().get(id))
-
-    data class PlantsResponse(
-            val plants: List<Plant>,
-            val status: Int = 200
-    )
-
-    data class PlantResponse(
-            val plant: Plant,
-            val status: Int = 200
-    )
 }
