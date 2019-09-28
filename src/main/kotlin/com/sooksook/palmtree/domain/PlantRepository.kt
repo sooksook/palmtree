@@ -5,7 +5,6 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.opencsv.CSVParserBuilder
 import com.opencsv.CSVReaderBuilder
 import org.springframework.core.io.ClassPathResource
-import java.io.FileReader
 import java.io.InputStreamReader
 
 class PlantRepository(
@@ -49,7 +48,7 @@ class PlantRepository(
                                         it[7],
                                         it[8],
                                         it[9],
-                                        "/static/img/${imageMeta.getValue(it[0]).id}"
+                                        "/static/img/${imageMeta.getValue(it[0]).id}.jpg"
                                 )
                     }
                     .toMap()
