@@ -2,6 +2,7 @@ package com.sooksook.palmtree.model
 
 import java.time.LocalDateTime
 import javax.persistence.*
+import javax.persistence.Id
 
 @Entity
 data class Favorite(

@@ -1,9 +1,12 @@
-package com.sooksook.palmtree.domain
+package com.sooksook.palmtree.repository
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.opencsv.CSVParserBuilder
 import com.opencsv.CSVReaderBuilder
+import com.sooksook.palmtree.model.Id
+import com.sooksook.palmtree.model.ImageMeta
+import com.sooksook.palmtree.model.Plant
 import org.springframework.core.io.ClassPathResource
 import java.io.InputStreamReader
 
@@ -57,7 +60,8 @@ class PlantRepository(
                     }
         }
 
-        private fun repository() = repository ?: initRepository()
+        private fun repository() = repository
+                ?: initRepository()
 
         fun get(id: Id): Plant = repository().getValue(id)
 

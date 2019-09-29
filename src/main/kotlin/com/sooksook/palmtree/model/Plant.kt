@@ -1,4 +1,4 @@
-package com.sooksook.palmtree.domain
+package com.sooksook.palmtree.model
 
 data class Plant(
         val id: Id,
@@ -13,9 +13,7 @@ data class Plant(
         val temparature: String,
         val difficulty: String,
         val imageUrl: String
-) {
-
-}
+)
 
 data class ImageMeta(
         val id: String,
