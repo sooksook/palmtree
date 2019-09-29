@@ -25,7 +25,13 @@ class PlantController {
         } ?: emptyMap()
 
         return PlantsResponse(
-                plants.map { PlantView.of(it, favorites[it.id]?.let { true } ?: false) }
+                plants
+                        .map {
+                            PlantView.of(
+                                    plant = it,
+                                    favorite = favorites[it.id]?.let { true } ?: false)
+                        }
+                        .sortedByDescending { it.favorite }
         )
     }
 
