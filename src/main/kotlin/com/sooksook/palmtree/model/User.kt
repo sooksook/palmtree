@@ -7,7 +7,7 @@ import javax.persistence.Id
 @Entity
 data class User(
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column
         val id: String,
         @Column(nullable = false)
         val nickname: String,

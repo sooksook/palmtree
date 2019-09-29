@@ -8,6 +8,7 @@ import javax.persistence.Id
 data class Comment(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column
         val id: Long,
         @Column(nullable = false)
         val userId: String,
