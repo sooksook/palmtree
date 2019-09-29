@@ -18,14 +18,14 @@ class PlantRepository(
 
         private fun initRepository(): Map<Id, Plant> {
             val dbResource = ClassPathResource("static/db/plant_database.tsv")
-            val reader = CSVReaderBuilder(InputStreamReader(dbResource.inputStream))
+            val plantCsvDataReader = CSVReaderBuilder(InputStreamReader(dbResource.inputStream))
                     .withCSVParser(
                             CSVParserBuilder()
                                     .withSeparator('\t')
                                     .build()
                     )
                     .build()
-            reader.readNext()
+            plantCsvDataReader.readNext()
 
             val imageMeta = jacksonObjectMapper()
                     .readValue<List<ImageMeta>>(
@@ -34,7 +34,7 @@ class PlantRepository(
                     .map { it.name to it }
                     .toMap()
 
-            return reader.readAll()
+            return plantCsvDataReader.readAll()
                     .filter {
                         imageMeta.containsKey(it[0])
                     }.map {
@@ -51,7 +51,8 @@ class PlantRepository(
                                         it[7],
                                         it[8],
                                         it[9],
-                                        "/static/img/${imageMeta.getValue(it[0]).id}.jpg"
+                                        "/static/img/${imageMeta.getValue(it[0]).id}.jpg",
+                                        imageMeta.getValue(it[0]).source
                                 )
                     }
                     .toMap()

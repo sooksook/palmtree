@@ -12,7 +12,8 @@ data class Plant(
         val growthType: String,
         val temparature: String,
         val difficulty: String,
-        val imageUrl: String
+        val imageUrl: String,
+        val imageSource: String
 )
 
 data class ImageMeta(
