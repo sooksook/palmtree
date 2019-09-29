@@ -1,19 +1,21 @@
 package com.sooksook.palmtree.model
 
+import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.*
-import javax.persistence.Id
 
 @Entity
+@IdClass(FavoriteId::class)
 data class Favorite(
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column
-        val id: Long,
-        @Column(nullable = false)
         val userId: String,
-        @Column(nullable = false)
-        val plantId: Long,
+        @Id
+        val plantId: PlantId,
         @Column(nullable = false)
         val createdAt: LocalDateTime
 )
+
+data class FavoriteId(
+        val userId: String = "",
+        val plantId: PlantId = ""
+): Serializable

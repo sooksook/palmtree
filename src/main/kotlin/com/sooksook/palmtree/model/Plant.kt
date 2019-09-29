@@ -1,7 +1,7 @@
 package com.sooksook.palmtree.model
 
 data class Plant(
-        val id: Id,
+        val id: PlantId,
         val name: String,
         val engName: String,
         val category: String,
@@ -24,4 +24,4 @@ data class ImageMeta(
         val origin: String
 )
 
-typealias Id = String
+typealias PlantId = String

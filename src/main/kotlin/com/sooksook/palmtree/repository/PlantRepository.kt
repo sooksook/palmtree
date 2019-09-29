@@ -4,19 +4,19 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.opencsv.CSVParserBuilder
 import com.opencsv.CSVReaderBuilder
-import com.sooksook.palmtree.model.Id
+import com.sooksook.palmtree.model.PlantId
 import com.sooksook.palmtree.model.ImageMeta
 import com.sooksook.palmtree.model.Plant
 import org.springframework.core.io.ClassPathResource
 import java.io.InputStreamReader
 
 class PlantRepository(
-        private val repository: Map<Id, Plant> = initRepository()
+        private val repository: Map<PlantId, Plant> = initRepository()
 ) {
     companion object {
-        private lateinit var repository: Map<Id, Plant>
+        private lateinit var repository: Map<PlantId, Plant>
 
-        private fun initRepository(): Map<Id, Plant> {
+        private fun initRepository(): Map<PlantId, Plant> {
             val dbResource = ClassPathResource("static/db/plant_database.tsv")
             val plantCsvDataReader = CSVReaderBuilder(InputStreamReader(dbResource.inputStream))
                     .withCSVParser(
@@ -64,12 +64,12 @@ class PlantRepository(
         private fun repository() = repository
                 ?: initRepository()
 
-        fun get(id: Id): Plant = repository().getValue(id)
+        fun get(plantId: PlantId): Plant = repository().getValue(plantId)
 
         fun getAll(): List<Plant> = repository().values.toList()
     }
 
-    fun get(id: Id): Plant = repository.getValue(id)
+    fun get(plantId: PlantId): Plant = repository.getValue(plantId)
 
     fun getAll(): List<Plant> = repository.values.toList()
 }

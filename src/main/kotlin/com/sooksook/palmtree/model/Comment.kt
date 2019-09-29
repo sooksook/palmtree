@@ -13,7 +13,7 @@ data class Comment(
         @Column(nullable = false)
         val userId: String,
         @Column(nullable = false)
-        val plantId: Long,
+        val plantId: PlantId,
         @Column(nullable = false)
         val createdAt: LocalDateTime,
         @Column(nullable = false)
