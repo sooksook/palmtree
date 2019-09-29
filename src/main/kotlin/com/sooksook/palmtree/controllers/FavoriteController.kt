@@ -5,6 +5,7 @@ import com.sooksook.palmtree.model.FavoriteId
 import com.sooksook.palmtree.model.PlantId
 import com.sooksook.palmtree.repository.FavoriteRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 
@@ -20,9 +21,9 @@ class FavoriteController {
             @RequestParam userId: String
     ): FavoritesView = FavoritesView(repository.findAllByUserId(userId))
 
-    @PostMapping("/favorites")
+    @PostMapping("/favorites", consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun setFavorite(
-            form: SetFavoriteForm
+            @RequestBody form: SetFavoriteForm
     ): JsonResult {
         repository.save(
                 Favorite(
@@ -34,9 +35,9 @@ class FavoriteController {
         return JsonResult()
     }
 
-    @DeleteMapping("/favorites")
+    @DeleteMapping("/favorites", consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun unsetFavorite(
-            form: UnsetFavoriteForm
+            @RequestBody form: UnsetFavoriteForm
     ): JsonResult {
         val favorite = repository.findById(FavoriteId(form.userId, form.plantId))
         favorite.ifPresent { repository.delete(favorite.get()) }

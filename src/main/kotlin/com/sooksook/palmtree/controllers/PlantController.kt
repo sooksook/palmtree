@@ -2,10 +2,12 @@ package com.sooksook.palmtree.controllers
 
 import com.sooksook.palmtree.model.FavoriteId
 import com.sooksook.palmtree.model.PlantId
-import com.sooksook.palmtree.model.Plant
 import com.sooksook.palmtree.repository.FavoriteRepository
 import com.sooksook.palmtree.repository.PlantRepository
 import com.sooksook.palmtree.view.PlantView
+import io.swagger.annotations.ApiImplicitParam
+import io.swagger.annotations.ApiImplicitParams
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -16,7 +18,13 @@ class PlantController {
     lateinit var favoriteRepository: FavoriteRepository
 
     @GetMapping("/plants")
-    fun plants(@RequestParam userId: String?): PlantsResponse {
+    @ApiOperation("""
+        식물 정보 리스트를 내려준다.
+        파라미터에 userId가 있으면 favorite 정보를 확인해서 내려주며 favorite true 순으로 내려준다.
+        userId가 없으면 favorite은 모두 false.
+        """
+    )
+    fun plants(@RequestParam(required = false) userId: String?): PlantsResponse {
         val plants = PlantRepository().getAll()
         val favorites = userId?.let {
             favoriteRepository.findAllByUserId(userId).map {
@@ -36,9 +44,12 @@ class PlantController {
     }
 
     @GetMapping("/plants/{plantId}")
+    @ApiImplicitParams(
+            ApiImplicitParam(name = "userId", value = "있으면 favorite 여부 확인한다.", required = false, paramType = "query")
+    )
     fun plant(
             @PathVariable plantId: PlantId,
-            @RequestParam userId: String?
+            @RequestParam(required = false) userId: String?
     ): PlantResponse {
         return PlantResponse(
                 PlantView.of(
